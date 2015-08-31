@@ -1,3 +1,9 @@
 define([], function () {
-    return {};
+    return {
+        select: function () {
+            return {
+                primary_category: "Beer"
+            };
+        }
+    };
 });
