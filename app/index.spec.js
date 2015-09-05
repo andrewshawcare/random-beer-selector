@@ -6,8 +6,10 @@ define(["./index.js"], function (RandomBeerSelector) {
         randomBeerSelector = RandomBeerSelector();
       });
 
-        it("should be defined", function () {
+        it("should be an object", function () {
             expect(randomBeerSelector).toBeDefined();
+            expect(randomBeerSelector).not.toBeNull();
+            expect(typeof randomBeerSelector).toBe("object");
         });
 
         it("should select a beer", function () {
