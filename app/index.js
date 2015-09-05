@@ -1,5 +1,12 @@
 define([], function () {
   return function () {
+    /*
+     var products = getProductsFromStore(511);
+     var inventories = getInventoriesFromStore(511);
+     var candidateSelections = reduce(function () {}, products);
+     var filteredSelections = filter(function () {});
+    */
+    var store = {id: 511};
     var products = [
       {
         id: 1,
@@ -28,18 +35,26 @@ define([], function () {
         quantity: 1
       }
     ];
+    var productsWithInventory = products.map(function (product) {
+      var inventory = inventories.filter(function (inventory) {
+        return inventory.product_id === product.id;
+      })[0];
+      return {
+        product: product,
+        inventory: inventory
+      };
+    });
     return {
       canSelect: function () {
-        return products.length > 0;
+        return productsWithInventory.length > 0;
       },
       select: function () {
-        var randomProductIndex = Math.floor(Math.random() * products.length);
+        var randomIndex = Math.floor(Math.random() * products.length);
+        var productWithInventory = productsWithInventory.splice(randomIndex, 1)[0];
         return {
-          store: {
-            id: 511
-          },
-          product: products.splice(randomProductIndex, 1)[0],
-          inventory: inventories.splice(randomProductIndex, 1)[0]
+          store: store,
+          product: productWithInventory.product,
+          inventory: productWithInventory.inventory
         };
       }
     };
