@@ -49,7 +49,7 @@ define([], function () {
         return productsWithInventory.length > 0;
       },
       select: function () {
-        var randomIndex = Math.floor(Math.random() * products.length);
+        var randomIndex = Math.floor(Math.random() * productsWithInventory.length);
         var productWithInventory = productsWithInventory.splice(randomIndex, 1)[0];
         return {
           store: store,
