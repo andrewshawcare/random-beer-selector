@@ -1,11 +1,5 @@
-define([], function () {
+define(["lib/jquery", "lib/es6-promise"], function ($, ES6Promise) {
   return function () {
-    /*
-     var products = getProductsFromStore(511);
-     var inventories = getInventoriesFromStore(511);
-     var candidateSelections = reduce(function () {}, products);
-     var filteredSelections = filter(function () {});
-    */
     var store = {id: 511};
     var products = [
       {
