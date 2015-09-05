@@ -5,15 +5,20 @@ define(["./index.js"], function (RandomBeerSelector) {
         });
 
         it("should select a beer", function () {
-            var product = RandomBeerSelector.select();
-            expect(product.primary_category).toBe("Beer");
+            var selection = RandomBeerSelector.select();
+            expect(selection.product.primary_category).toBe("Beer");
         });
 
         it("should select an available product", function () {
-            var product = RandomBeerSelector.select();
-            expect(product.is_dead).toBe(false);
-            expect(product.is_discontinued).toBe(false);
-            expect(product.inventory_count).toBeGreaterThan(0);
+            var selection = RandomBeerSelector.select();
+            expect(selection.product.is_dead).toBe(false);
+            expect(selection.product.is_discontinued).toBe(false);
+            expect(selection.product.inventory_count).toBeGreaterThan(0);
+        });
+
+        it("should select a product from store 511", function () {
+          var selection = RandomBeerSelector.select();
+          expect(selection.store.id).toBe(511);
         });
     });
 });
