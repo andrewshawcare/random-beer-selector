@@ -57,5 +57,10 @@ define(["./index.js"], function (RandomBeerSelector) {
             selectedProductIds[selection.product.id] = true;
           }
         });
+
+        it("should return undefined if no more selections are available", function () {
+          while (randomBeerSelector.canSelect() && randomBeerSelector.select()) {}
+          expect(randomBeerSelector.select()).not.toBeDefined();
+        });
     });
 });

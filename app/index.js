@@ -121,11 +121,15 @@ define([], function () {
         productsWithInventory.concat({product: product, inventory: inventory}) :
         productsWithInventory
     }, []);
+    var canSelect = function () {
+      return productsWithInventory.length > 0;
+    };
     return {
-      canSelect: function () {
-        return productsWithInventory.length > 0;
-      },
+      canSelect: canSelect,
       select: function () {
+        if (!canSelect()) {
+          return undefined;
+        };
         var randomIndex = Math.floor(Math.random() * productsWithInventory.length);
         var productWithInventory = productsWithInventory.splice(randomIndex, 1)[0];
         return {
