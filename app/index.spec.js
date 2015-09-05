@@ -27,6 +27,13 @@ define(["./index.js"], function (RandomBeerSelector) {
           expect(selection.store.id).toBe(511);
         });
 
+        it("should select a product with inventory at the selected store", function () {
+          var selection = randomBeerSelector.select();
+          expect(selection.product.id).toEqual(selection.inventory.product_id);
+          expect(selection.store.id).toBe(selection.inventory.store_id);
+          expect(selection.inventory.quantity).toBeGreaterThan(0);
+        });
+
         it("should not select the same product", function () {
           var selectedProductIds = {};
           var selection;

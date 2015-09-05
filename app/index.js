@@ -16,6 +16,18 @@ define([], function () {
         inventory_count: 1
       }
     ];
+    var inventories = [
+      {
+        product_id: 1,
+        store_id: 511,
+        quantity: 1
+      },
+      {
+        product_id: 2,
+        store_id: 511,
+        quantity: 1
+      }
+    ];
     return {
       canSelect: function () {
         return products.length > 0;
@@ -26,7 +38,8 @@ define([], function () {
           store: {
             id: 511
           },
-          product: products.splice(randomProductIndex, 1)[0]
+          product: products.splice(randomProductIndex, 1)[0],
+          inventory: inventories.splice(randomProductIndex, 1)[0]
         };
       }
     };
