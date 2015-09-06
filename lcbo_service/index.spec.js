@@ -5,7 +5,7 @@ define(["./index"], function (LcboService) {
     });
 
     it("should return a product iterator", function () {
-      var productIterator = LcboService.getProducts();
+      var productIterator = LcboService.getProductIterator();
 
       expect(productIterator).toBeDefined();
       expect(productIterator).not.toBeNull();
@@ -27,7 +27,7 @@ define(["./index"], function (LcboService) {
     });
 
     it("should return a product", function (done) {
-      var productIterator = LcboService.getProducts();
+      var productIterator = LcboService.getProductIterator();
       var next = productIterator.next();
 
       if (next.done) {

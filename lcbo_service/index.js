@@ -1,16 +1,4 @@
 define(["lib/es6-promise", "lib/jquery"], function (Es6Promise, $) {
-  var getProductPage = function (data) {
-    return new Promise(function (resolve, reject) {
-      $.ajax({
-        url: "http://lcboapi.com/products",
-        dataType: "jsonp",
-        data: data
-      })
-      .then(resolve)
-      .fail(reject);
-    });
-  };
-
   return {
     getProductIterator: function (args) {
       return {
