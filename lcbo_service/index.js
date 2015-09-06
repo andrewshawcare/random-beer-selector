@@ -10,25 +10,26 @@ define(["lib/es6-promise", "lib/jquery"], function (Es6Promise, $) {
       .fail(reject);
     });
   };
+
   return {
-    getProducts: function (args) {
-      var store_id = args.store_id;
-      return getProductPage({ page: 1, per_page: 100, store_id: store_id })
-      .then(function (response) {
-        var total_pages = response.pager.total_pages;
-        var i;
-        var pages = [];
-        for (i = 1; i <= total_pages; i++) {
-          pages.push(
-            getProductPage({ page: i, per_page: 100, store_id: store_id })
-          );
+    getProductIterator: function (args) {
+      return {
+        next: function () {
+          return {
+            done: false,
+            value: new Promise(function (resolve, reject) {
+              resolve({
+                id: 1,
+                is_dead: false,
+                name: "",
+                is_discontinued: false,
+                primary_category: "Beer",
+                inventory_count: 1
+              });
+            })
+          };
         }
-        return Promise.all(pages).then(function (responses) {
-          return responses.reduce(function (products, response) {
-            return products.concat(response.result);
-          }, []);
-        });
-      });
+      };
     }
   };
 });
