@@ -32,22 +32,22 @@ define(["./index.js"], function (RandomBeerSelector) {
       });
     });
 
-    it("should be a function", function () {
+    it("is a function", function () {
       expect(RandomBeerSelector).toBeDefined();
       expect(typeof RandomBeerSelector).toBe("function");
     });
 
-    it("should work without arguments", function () {
+    it("works without arguments", function () {
       expect(RandomBeerSelector).not.toThrow();
     });
 
-    it("should produce an object", function () {
+    it("produces an object", function () {
       expect(randomBeerSelector).toBeDefined();
       expect(randomBeerSelector).not.toBeNull();
       expect(typeof randomBeerSelector).toBe("object");
     });
 
-    it("should select a beer", function () {
+    it("selects a beer", function () {
       var selection;
       while (randomBeerSelector.canSelect()) {
         selection = randomBeerSelector.select();
@@ -55,7 +55,7 @@ define(["./index.js"], function (RandomBeerSelector) {
       }
     });
 
-    it("should select an available product", function () {
+    it("selects an available product", function () {
       var selection;
       while (randomBeerSelector.canSelect()) {
         selection = randomBeerSelector.select();

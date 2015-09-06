@@ -1,6 +1,6 @@
 define(["lib/es6-promise", "./index"], function (Es6Promise, ProductIterator) {
   describe("Product Iterator", function () {
-    it("should return an async iterator", function (done) {
+    it("returns an async iterator", function (done) {
       var productIterator = ProductIterator();
 
       expect(productIterator).toBeDefined();
@@ -26,7 +26,7 @@ define(["lib/es6-promise", "./index"], function (Es6Promise, ProductIterator) {
       .then(done);
     });
 
-    it("should return a product", function (done) {
+    it("returns a product", function (done) {
       var productIterator = ProductIterator();
 
       productIterator.next().then(function (next) {
@@ -56,7 +56,7 @@ define(["lib/es6-promise", "./index"], function (Es6Promise, ProductIterator) {
       .then(done);
     });
 
-    it("should accept a limit", function (done) {
+    it("accepts a limit", function (done) {
       var productIterator = ProductIterator({limit: 1});
 
       productIterator.next().then(function (firstNext) {
@@ -70,7 +70,7 @@ define(["lib/es6-promise", "./index"], function (Es6Promise, ProductIterator) {
       .catch(done.fail);
     });
 
-    it("should accept query parameters", function (done) {
+    it("accepts query parameters", function (done) {
       var productIterator = ProductIterator({
         limit: 2,
         query: {

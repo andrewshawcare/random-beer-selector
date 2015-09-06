@@ -1,6 +1,6 @@
 define(["lib/es6-promise", "./index.js"], function (Es6Promise, InventoryIterator) {
   describe("Inventory Iterator", function () {
-    it("should return an async iterator", function (done) {
+    it("returns an async iterator", function (done) {
       var inventoryIterator = InventoryIterator();
 
       expect(inventoryIterator).toBeDefined();
@@ -26,7 +26,7 @@ define(["lib/es6-promise", "./index.js"], function (Es6Promise, InventoryIterato
       .then(done);
     });
 
-    it("should return an inventory", function (done) {
+    it("returns an inventory", function (done) {
       var inventoryIterator = InventoryIterator();
 
       inventoryIterator.next().then(function (next) {
@@ -47,7 +47,7 @@ define(["lib/es6-promise", "./index.js"], function (Es6Promise, InventoryIterato
       .then(done);
     });
 
-    it("should accept a limit", function (done) {
+    it("accepts a limit", function (done) {
       var inventoryIterator = InventoryIterator({limit: 1});
 
       inventoryIterator.next().then(function (firstNext) {
@@ -61,7 +61,7 @@ define(["lib/es6-promise", "./index.js"], function (Es6Promise, InventoryIterato
       .catch(done.fail);
     });
 
-    it("should accept query parameters", function (done) {
+    it("accepts query parameters", function (done) {
       var inventoryIterator = InventoryIterator({
         limit: 2,
         query: {
