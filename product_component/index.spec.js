@@ -12,7 +12,7 @@ define(["./index"], function (ProductComponent) {
       expect(ProductComponent.create()).toHaveClass("product");
     });
 
-    it("conveys the product name", function () {
+    it("conveys the name", function () {
       var productElement = ProductComponent.create({
         name: "Product"
       });
@@ -27,6 +27,15 @@ define(["./index"], function (ProductComponent) {
       });
       var servingSuggestionElement = productElement.querySelector(".servingSuggestion");
       expect(servingSuggestionElement).toContainText(serving_suggestion);
+    });
+
+    it("conveys the tasting note", function () {
+      var tasting_note = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+      var productElement = ProductComponent.create({
+        tasting_note: tasting_note
+      });
+      var tastingNoteElement = productElement.querySelector(".tastingNote");
+      expect(tastingNoteElement).toContainText(tasting_note);
     });
   });
 });

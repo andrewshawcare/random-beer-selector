@@ -20,6 +20,13 @@ define([], function () {
         productElement.appendChild(servingSuggestionElement);
       }
 
+      if (args.tasting_note) {
+        var tastingNoteElement = document.createElement("div");
+        tastingNoteElement.classList.add("tastingNote");
+        tastingNoteElement.innerText = args.tasting_note;
+        productElement.appendChild(tastingNoteElement);
+      }
+
       return productElement;
     }
   };
