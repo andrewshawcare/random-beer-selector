@@ -60,5 +60,30 @@ define(["lib/es6-promise", "./index.js"], function (Es6Promise, InventoryIterato
       })
       .catch(done.fail);
     });
+
+    it("should accept query parameters", function (done) {
+      var inventoryIterator = InventoryIterator({
+        limit: 2,
+        query: {
+          where_not: "is_dead",
+          order: "quantity",
+          store_id: 511
+        }
+      });
+
+      inventoryIterator.next().then(function (firstNext) {
+        inventoryIterator.next().then(function (secondNext) {
+          var inventories = [firstNext.value, secondNext.value];
+          inventories.forEach(function (inventory) {
+            expect(inventory.store_id).toBe(511);
+            expect(inventory.is_dead).toBe(false);
+          });
+          expect(inventories[0].quantity).toBeLessThan(inventories[1].quantity);
+        })
+        .catch(done.fail)
+        .then(done);
+      })
+      .catch(done.fail);
+    });
   });
 });

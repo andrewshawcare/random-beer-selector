@@ -70,7 +70,7 @@ define(["lib/es6-promise", "./index"], function (Es6Promise, ProductIterator) {
       .catch(done.fail);
     });
 
-    it("accepts query parameters", function (done) {
+    it("should accept query parameters", function (done) {
       var productIterator = ProductIterator({
         limit: 2,
         query: {
