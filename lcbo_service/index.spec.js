@@ -1,11 +1,11 @@
-define(["./index"], function (LcboService) {
+define(["./index", "lib/es6-promise"], function (LcboService, Es6Promise) {
   describe("LCBO Service", function () {
     it("should be defined", function () {
       expect(LcboService).toBeDefined();
     });
 
     describe("Product iterator", function () {
-      it("should return a product iterator", function () {
+      it("should return an async product iterator", function (done) {
         var productIterator = LcboService.getProductIterator();
 
         expect(productIterator).toBeDefined();
@@ -15,58 +15,89 @@ define(["./index"], function (LcboService) {
         expect(productIterator.hasOwnProperty("next")).toBe(true);
         expect(typeof productIterator.next).toBe("function");
 
-        var next = productIterator.next();
+        var promise = productIterator.next();
 
-        expect(next).toBeDefined();
-        expect(next).not.toBeNull();
-        expect(typeof next).toBe("object");
+        expect(promise).toBeDefined();
+        expect(promise).not.toBeNull();
+        expect(promise instanceof Promise).toBe(true);
 
-        expect(next.hasOwnProperty("done")).toBe(true);
-        expect(typeof next.done).toBe("boolean");
+        promise.then(function (next) {
+          expect(next.hasOwnProperty("done")).toBe(true);
+          expect(typeof next.done).toBe("boolean");
 
-        expect(next.hasOwnProperty("value")).toBe(true);
+          expect(next.hasOwnProperty("value")).toBe(true);
+        })
+        .catch(done.fail)
+        .then(done);
       });
 
       it("should return a product", function (done) {
         var productIterator = LcboService.getProductIterator();
 
-        var next = productIterator.next();
+        productIterator.next().then(function (next) {
+          var product = next.value;
 
-        if (next.done) {
-          done.fail("No products");
-        } else {
-          next.value
-          .then(function (product) {
-            expect(product).toBeDefined();
+          expect(product).toBeDefined();
 
-            expect(product.hasOwnProperty("id")).toBe(true);
-            expect(typeof product.id).toBe("number");
+          expect(product.hasOwnProperty("id")).toBe(true);
+          expect(typeof product.id).toBe("number");
 
-            expect(product.hasOwnProperty("is_dead")).toBe(true);
-            expect(typeof product.is_dead).toBe("boolean");
+          expect(product.hasOwnProperty("is_dead")).toBe(true);
+          expect(typeof product.is_dead).toBe("boolean");
 
-            expect(product.hasOwnProperty("name")).toBe(true);
-            expect(typeof product.name).toBe("string");
+          expect(product.hasOwnProperty("name")).toBe(true);
+          expect(typeof product.name).toBe("string");
 
-            expect(product.hasOwnProperty("is_discontinued")).toBe(true);
-            expect(typeof product.is_discontinued).toBe("boolean");
+          expect(product.hasOwnProperty("is_discontinued")).toBe(true);
+          expect(typeof product.is_discontinued).toBe("boolean");
 
-            expect(product.hasOwnProperty("primary_category")).toBe(true);
-            expect(typeof product.primary_category).toBe("string");
+          expect(product.hasOwnProperty("primary_category")).toBe(true);
+          expect(typeof product.primary_category).toBe("string");
 
-            expect(product.hasOwnProperty("inventory_count")).toBe(true);
-            expect(typeof product.inventory_count).toBe("number");
+          expect(product.hasOwnProperty("inventory_count")).toBe(true);
+          expect(typeof product.inventory_count).toBe("number");
+        })
+        .catch(done.fail)
+        .then(done);
+      });
+
+      it("accepts a limit", function (done) {
+        var productIterator = LcboService.getProductIterator({limit: 1});
+
+        productIterator.next().then(function (firstNext) {
+          productIterator.next().then(function (secondNext) {
+            expect(firstNext.done).toBe(false);
+            expect(secondNext.done).toBe(true);
           })
           .catch(done.fail)
           .then(done);
-        }
+        })
+        .catch(done.fail);
       });
 
-      it("accepts a limit", function () {
-        var productIterator = LcboService.getProductIterator({limit: 1});
+      it("accepts query paramaters", function (done) {
+        var productIterator = LcboService.getProductIterator({query: {
+          where: "is_kosher",
+          where_not: "is_dead",
+          order: "id",
+          q: "wine",
+          store_id: 511
+        }});
 
-        expect(productIterator.next().done).toBe(false);
-        expect(productIterator.next().done).toBe(true);
+        productIterator.next().then(function (firstNext) {
+          productIterator.next().then(function (secondNext) {
+            var products = [firstNext.value, secondNext.value];
+            products.forEach(function (product) {
+              expect(product.is_kosher).toBe(true);
+              expect(product.is_dead).toBe(false);
+              expect(product.tags).toMatch("wine");
+            });
+            expect(products[0].id).toBeLessThan(products[1].id);
+          })
+          .catch(done.fail)
+          .then(done);
+        })
+        .catch(done.fail);
       });
     });
   });
