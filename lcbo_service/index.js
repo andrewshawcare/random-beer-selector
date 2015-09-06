@@ -6,7 +6,13 @@ define(["lib/es6-promise", "lib/jquery"], function (Es6Promise, $) {
       var query = args.query || {};
 
       var iterations = 0;
-      var per_page = (limit <= 5) ? 5 : (limit < 100) ? limit : 100;
+      var per_page_min = 5;
+      var per_page_max = 100;
+      var per_page = (limit <= per_page_min) ?
+        per_page_min :
+          (limit < per_page_max) ?
+            limit :
+            per_page_max;
       var current_page = 1;
       var is_final_page = false;
 
@@ -15,10 +21,7 @@ define(["lib/es6-promise", "lib/jquery"], function (Es6Promise, $) {
       var done = function () {
         return (
           iterations > limit ||
-          (
-            products.length === 0 &&
-            is_final_page
-          )
+          (products.length === 0 && is_final_page)
         );
       }
 
@@ -38,6 +41,7 @@ define(["lib/es6-promise", "lib/jquery"], function (Es6Promise, $) {
               .then(function (response) {
                 current_page = response.next_page;
                 is_final_page = response.is_final_page;
+
                 if (!Array.isArray(response.result)) {
                   reject(response.message);
                 } else {
@@ -55,6 +59,18 @@ define(["lib/es6-promise", "lib/jquery"], function (Es6Promise, $) {
                 value: products.pop()
               });
             }
+          });
+        }
+      };
+    },
+    getInventoryIterator: function () {
+      return {
+        next: function () {
+          return new Promise(function (resolve, reject) {
+            resolve({
+              done: false,
+              value: undefined
+            });
           });
         }
       };

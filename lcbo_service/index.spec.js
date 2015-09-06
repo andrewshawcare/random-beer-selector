@@ -4,8 +4,8 @@ define(["./index", "lib/es6-promise"], function (LcboService, Es6Promise) {
       expect(LcboService).toBeDefined();
     });
 
-    describe("Product iterator", function () {
-      it("should return an async product iterator", function (done) {
+    describe("Product Iterator", function () {
+      it("should return an async iterator", function (done) {
         var productIterator = LcboService.getProductIterator();
 
         expect(productIterator).toBeDefined();
@@ -76,13 +76,16 @@ define(["./index", "lib/es6-promise"], function (LcboService, Es6Promise) {
       });
 
       it("accepts query parameters", function (done) {
-        var productIterator = LcboService.getProductIterator({query: {
-          where: "is_kosher",
-          where_not: "is_dead",
-          order: "id",
-          q: "wine",
-          store_id: 511
-        }});
+        var productIterator = LcboService.getProductIterator({
+          limit: 2,
+          query: {
+            where: "is_kosher",
+            where_not: "is_dead",
+            order: "id",
+            q: "wine",
+            store_id: 511
+          }
+        });
 
         productIterator.next().then(function (firstNext) {
           productIterator.next().then(function (secondNext) {
@@ -98,6 +101,34 @@ define(["./index", "lib/es6-promise"], function (LcboService, Es6Promise) {
           .then(done);
         })
         .catch(done.fail);
+      });
+    });
+
+    describe("Inventory Iterator", function () {
+      it("should return an async iterator", function (done) {
+        var inventoryIterator = LcboService.getInventoryIterator();
+
+        expect(inventoryIterator).toBeDefined();
+        expect(inventoryIterator).not.toBeNull();
+        expect(typeof inventoryIterator).toBe("object");
+
+        expect(inventoryIterator.hasOwnProperty("next")).toBe(true);
+        expect(typeof inventoryIterator.next).toBe("function");
+
+        var promise = inventoryIterator.next();
+
+        expect(promise).toBeDefined();
+        expect(promise).not.toBeNull();
+        expect(promise instanceof Promise).toBe(true);
+
+        promise.then(function (next) {
+          expect(next.hasOwnProperty("done")).toBe(true);
+          expect(typeof next.done).toBe("boolean");
+
+          expect(next.hasOwnProperty("value")).toBe(true);
+        })
+        .catch(done.fail)
+        .then(done);
       });
     });
   });
