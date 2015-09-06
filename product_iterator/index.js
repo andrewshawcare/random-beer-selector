@@ -39,8 +39,8 @@ define(["lib/es6-promise", "lib/jquery"], function (Es6Promise, $) {
               data: $.extend({}, query, {page: current_page, per_page: per_page})
             })
             .then(function (response) {
-              current_page = response.next_page;
-              is_final_page = response.is_final_page;
+              current_page = response.pager.next_page;
+              is_final_page = response.pager.is_final_page;
 
               if (!Array.isArray(response.result)) {
                 reject(response.message);
