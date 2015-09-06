@@ -75,7 +75,7 @@ define(["./index", "lib/es6-promise"], function (LcboService, Es6Promise) {
         .catch(done.fail);
       });
 
-      it("accepts query paramaters", function (done) {
+      it("accept query paramaters", function (done) {
         var productIterator = LcboService.getProductIterator({query: {
           where: "is_kosher",
           where_not: "is_dead",
