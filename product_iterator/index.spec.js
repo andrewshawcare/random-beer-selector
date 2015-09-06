@@ -56,7 +56,7 @@ define(["lib/es6-promise", "./index"], function (Es6Promise, ProductIterator) {
       .then(done);
     });
 
-    it("accepts a limit", function (done) {
+    it("should accept a limit", function (done) {
       var productIterator = ProductIterator({limit: 1});
 
       productIterator.next().then(function (firstNext) {

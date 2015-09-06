@@ -34,26 +34,31 @@ define(["lib/es6-promise", "./index.js"], function (Es6Promise, InventoryIterato
 
         expect(inventory).toBeDefined();
 
-        expect(inventory.hasOwnProperty("id")).toBe(true);
-        expect(typeof inventory.id).toBe("number");
+        expect(inventory.hasOwnProperty("product_id")).toBe(true);
+        expect(typeof inventory.product_id).toBe("number");
 
-        expect(inventory.hasOwnProperty("is_dead")).toBe(true);
-        expect(typeof inventory.is_dead).toBe("boolean");
+        expect(inventory.hasOwnProperty("store_id")).toBe(true);
+        expect(typeof inventory.store_id).toBe("number");
 
-        expect(inventory.hasOwnProperty("name")).toBe(true);
-        expect(typeof inventory.name).toBe("string");
-
-        expect(inventory.hasOwnProperty("is_discontinued")).toBe(true);
-        expect(typeof inventory.is_discontinued).toBe("boolean");
-
-        expect(inventory.hasOwnProperty("primary_category")).toBe(true);
-        expect(typeof inventory.primary_category).toBe("string");
-
-        expect(inventory.hasOwnProperty("inventory_count")).toBe(true);
-        expect(typeof inventory.inventory_count).toBe("number");
+        expect(inventory.hasOwnProperty("quantity")).toBe(true);
+        expect(typeof inventory.quantity).toBe("number");
       })
       .catch(done.fail)
       .then(done);
+    });
+
+    it("should accept a limit", function (done) {
+      var inventoryIterator = InventoryIterator({limit: 1});
+
+      inventoryIterator.next().then(function (firstNext) {
+        inventoryIterator.next().then(function (secondNext) {
+          expect(firstNext.done).toBe(false);
+          expect(secondNext.done).toBe(true);
+        })
+        .catch(done.fail)
+        .then(done);
+      })
+      .catch(done.fail);
     });
   });
 });
