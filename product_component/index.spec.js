@@ -19,5 +19,14 @@ define(["./index"], function (ProductComponent) {
       var nameElement = productElement.querySelector(".name");
       expect(nameElement).toContainText("Product");
     });
+
+    it("conveys the serving suggestion", function () {
+      var serving_suggestion = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+      var productElement = ProductComponent.create({
+        serving_suggestion: serving_suggestion
+      });
+      var servingSuggestionElement = productElement.querySelector(".servingSuggestion");
+      expect(servingSuggestionElement).toContainText(serving_suggestion);
+    });
   });
 });

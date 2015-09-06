@@ -13,6 +13,13 @@ define([], function () {
         productElement.appendChild(nameElement);
       }
 
+      if (args.serving_suggestion) {
+        var servingSuggestionElement = document.createElement("div");
+        servingSuggestionElement.classList.add("servingSuggestion");
+        servingSuggestionElement.innerText = args.serving_suggestion;
+        productElement.appendChild(servingSuggestionElement);
+      }
+
       return productElement;
     }
   };
