@@ -1,7 +1,9 @@
 define([], function () {
   return {
     create: function () {
-      return document.createElement("div");
+      var element = document.createElement("div");
+      element.classList.add("product");
+      return element;
     }
   };
 });
