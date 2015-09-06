@@ -37,5 +37,21 @@ define(["./index"], function (ProductComponent) {
       var tastingNoteElement = productElement.querySelector(".tastingNote");
       expect(tastingNoteElement).toContainText(tasting_note);
     });
+
+    it("conveys the image", function () {
+      var image = {
+        src: "http://www.example.com/image",
+        alt: "This is an example image"
+      };
+      var productElement = ProductComponent.create({
+        image: {
+          src: image.src,
+          alt: image.alt
+        }
+      });
+      var imageElement = productElement.querySelector(".image");
+      expect(imageElement).toHaveAttr("src", image.src);
+      expect(imageElement).toHaveAttr("alt", image.alt);
+    });
   });
 });

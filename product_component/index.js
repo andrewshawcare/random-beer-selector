@@ -27,6 +27,14 @@ define([], function () {
         productElement.appendChild(tastingNoteElement);
       }
 
+      if (args.image) {
+        var imageElement = document.createElement("img");
+        imageElement.classList.add("image");
+        imageElement.setAttribute("src", args.image.src);
+        imageElement.setAttribute("alt", args.image.alt);
+        productElement.appendChild(imageElement);
+      }
+
       return productElement;
     }
   };
