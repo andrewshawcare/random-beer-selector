@@ -5,13 +5,9 @@ define(["./index"], function (LcboService) {
     });
 
     describe("Product iterator", function () {
-      var productIterator;
-
-      beforeEach(function () {
-        productIterator = LcboService.getProductIterator();
-      });
-
       it("should return a product iterator", function () {
+        var productIterator = LcboService.getProductIterator();
+
         expect(productIterator).toBeDefined();
         expect(productIterator).not.toBeNull();
         expect(typeof productIterator).toBe("object");
@@ -32,6 +28,8 @@ define(["./index"], function (LcboService) {
       });
 
       it("should return a product", function (done) {
+        var productIterator = LcboService.getProductIterator();
+
         var next = productIterator.next();
 
         if (next.done) {
@@ -62,6 +60,13 @@ define(["./index"], function (LcboService) {
           .catch(done.fail)
           .then(done);
         }
+      });
+
+      it("accepts a limit", function () {
+        var productIterator = LcboService.getProductIterator({limit: 1});
+
+        expect(productIterator.next().done).toBe(false);
+        expect(productIterator.next().done).toBe(true);
       });
     });
   });
