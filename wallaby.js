@@ -2,6 +2,8 @@ module.exports = function () {
   return {
     files: [
       {pattern: "lib/bind.js", instrument: false},
+      {pattern: "lib/jquery.js", instrument: false},
+      {pattern: "lib/jasmine-jquery.js", instrument: false},
       {pattern: "lib/require.js", instrument: false},
       {pattern: "lib/*.js", instrument: false, load: false},
       {pattern: "**/index.js", load: false},
