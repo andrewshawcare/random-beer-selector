@@ -22,3 +22,8 @@ body {
   width: 50%;
   float: right;
 }
+
+.product .action {
+  display: inline-block;
+  margin: 1rem 0;
+}
