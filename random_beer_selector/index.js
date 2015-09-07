@@ -26,8 +26,8 @@ define([], function () {
         return inventory.product_id === product.id;
       })[0];
       return (inventory) ?
-      productsWithInventory.concat({product: product, inventory: inventory}) :
-      productsWithInventory
+        productsWithInventory.concat({product: product, inventory: inventory}) :
+        productsWithInventory;
     }, []);
 
     var canSelect = function () {
