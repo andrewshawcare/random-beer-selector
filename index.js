@@ -2,8 +2,15 @@ require([
   "lib/es6-promise",
   "lib/consume-async-iterator",
   "lcbo_service/index",
-  "random_beer_selector/index"
-], function (Es6Promise, consumeAsyncIterator, LcboService, RandomBeerSelector) {
+  "random_beer_selector/index",
+  "product_component/index"
+], function (
+  Es6Promise,
+  consumeAsyncIterator,
+  LcboService,
+  RandomBeerSelector,
+  ProductComponent
+) {
   var store_id = 511;
 
   var productIterator = LcboService.getProductIterator({
@@ -20,6 +27,8 @@ require([
     }
   });
 
+  var loadingElement = document.getElementById("loading");
+
   Promise.all([
     consumeAsyncIterator(productIterator),
     consumeAsyncIterator(inventoryIterator)
@@ -30,6 +39,18 @@ require([
       inventories: resolutions[1]
     });
 
-    console.log(randomBeerSelector.select());
+    var selectAndRenderProduct = function () {
+      var selection = randomBeerSelector.select();
+      var product = $.extend({}, selection.product, {
+        action: {
+          text: "Select another beer!",
+          onclick: selectAndRenderProduct
+        }
+      });
+      document.body.innerHTML = "";
+      document.body.appendChild(ProductComponent.create(product));
+    };
+
+    selectAndRenderProduct();
   });
 });

@@ -39,19 +39,27 @@ define(["./index"], function (ProductComponent) {
     });
 
     it("conveys the image", function () {
-      var image = {
-        src: "http://www.example.com/image",
-        alt: "This is an example image"
-      };
+      var image_url = "http://www.example.com/image";
       var productElement = ProductComponent.create({
-        image: {
-          src: image.src,
-          alt: image.alt
-        }
+        image_url: image_url
       });
       var imageElement = productElement.querySelector(".image");
-      expect(imageElement).toHaveAttr("src", image.src);
-      expect(imageElement).toHaveAttr("alt", image.alt);
+      expect(imageElement).toHaveAttr("src", image_url);
+    });
+
+    it("conveys an action", function (done) {
+      var action = {
+        text: "Action",
+        onclick: done
+      };
+      var productElement = ProductComponent.create({
+        action: action
+      });
+
+      var actionElement = productElement.querySelector(".action");
+      var event = document.createEvent("MouseEvent");
+      event.initMouseEvent("click");
+      actionElement.dispatchEvent(event);
     });
   });
 });

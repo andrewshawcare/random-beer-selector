@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: sans-serif;
+}
+
+.product {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.product .name {
+  font-size: 2rem;
+}
+
+.product .image {
+  width: 50%;
+  float: right;
+}
