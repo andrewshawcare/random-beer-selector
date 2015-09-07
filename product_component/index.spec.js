@@ -1,19 +1,19 @@
 define(["./index"], function (ProductComponent) {
   describe("Product Component", function () {
     it("exists", function () {
-      expect(ProductComponent.create()).toExist();
+      expect(ProductComponent()).toExist();
     });
 
     it("is not in the DOM", function () {
-      expect(ProductComponent.create()).not.toBeInDOM();
+      expect(ProductComponent()).not.toBeInDOM();
     });
 
     it("has the product class", function () {
-      expect(ProductComponent.create()).toHaveClass("product");
+      expect(ProductComponent()).toHaveClass("product");
     });
 
     it("conveys the name", function () {
-      var productElement = ProductComponent.create({
+      var productElement = ProductComponent({
         name: "Product"
       });
       var nameElement = productElement.querySelector(".name");
@@ -22,7 +22,7 @@ define(["./index"], function (ProductComponent) {
 
     it("conveys the serving suggestion", function () {
       var serving_suggestion = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-      var productElement = ProductComponent.create({
+      var productElement = ProductComponent({
         serving_suggestion: serving_suggestion
       });
       var servingSuggestionElement = productElement.querySelector(".servingSuggestion");
@@ -31,7 +31,7 @@ define(["./index"], function (ProductComponent) {
 
     it("conveys the tasting note", function () {
       var tasting_note = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-      var productElement = ProductComponent.create({
+      var productElement = ProductComponent({
         tasting_note: tasting_note
       });
       var tastingNoteElement = productElement.querySelector(".tastingNote");
@@ -40,7 +40,7 @@ define(["./index"], function (ProductComponent) {
 
     it("conveys the image", function () {
       var image_url = "http://www.example.com/image";
-      var productElement = ProductComponent.create({
+      var productElement = ProductComponent({
         image_url: image_url
       });
       var imageElement = productElement.querySelector(".image");
@@ -52,7 +52,7 @@ define(["./index"], function (ProductComponent) {
         text: "Action",
         onclick: done
       };
-      var productElement = ProductComponent.create({
+      var productElement = ProductComponent({
         action: action
       });
 

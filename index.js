@@ -46,7 +46,7 @@ require([
         }
       });
       document.body.innerHTML = "";
-      document.body.appendChild(ProductComponent.create(product));
+      document.body.appendChild(ProductComponent(product));
     };
 
     selectAndRenderProduct();
