@@ -17,6 +17,10 @@ body {
   font-size: 2rem;
 }
 
+.product .servingSuggestion {
+  font-style: italic;
+}
+
 .product .image {
   width: 100%;
 }
