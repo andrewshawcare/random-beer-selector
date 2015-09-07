@@ -59,16 +59,14 @@ define(["./index.js"], function (RandomBeerSelector) {
 
     it("selects a beer", function () {
       var next, selection;
-      for (next = randomBeerSelector.next(); !next.done; next = randomBeerSelector.next()) {
-        selection = next.value;
+      for (next = randomBeerSelector.next(), selection = next.value; !next.done; next = randomBeerSelector.next(), selection = next.value) {
         expect(selection.product.primary_category).toBe("Beer");
       }
     });
 
     it("selects an available product", function () {
       var next, selection;
-      for (next = randomBeerSelector.next(); !next.done; next = randomBeerSelector.next()) {
-        selection = next.value;
+      for (next = randomBeerSelector.next(), selection = next.value; !next.done; next = randomBeerSelector.next(), selection = next.value) {
         expect(selection.product.is_dead).toBe(false);
         expect(selection.product.is_discontinued).toBe(false);
         expect(selection.product.inventory_count).toBeGreaterThan(0);
