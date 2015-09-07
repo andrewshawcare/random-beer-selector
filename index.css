@@ -10,7 +10,6 @@ body {
 }
 
 .product {
-  width: 50%;
   margin: 0 auto;
 }
 
@@ -19,11 +18,17 @@ body {
 }
 
 .product .image {
-  width: 50%;
-  float: right;
+  width: 100%;
 }
 
 .product .action {
   display: inline-block;
   margin: 1rem 0;
+}
+
+@media (min-width:600px) {
+  .product .image {
+    width: 50%;
+    float: right;
+  }
 }
