@@ -29,6 +29,6 @@ body {
 }
 
 .product .action {
-  display: inline-block;
+  display: block;
   margin: 1rem 0;
 }
