@@ -42,6 +42,10 @@ define(["lib/es6-promise", "./index"], function (Es6Promise, ProductIterator) {
 
         expect(product.hasOwnProperty("name")).toBe(true);
         expect(typeof product.name).toBe("string");
+        
+        expect(product.hasOwnProperty("serving_suggestion")).toBe(true);
+        
+        expect(product.hasOwnProperty("tasting_note")).toBe(true);
 
         expect(product.hasOwnProperty("is_discontinued")).toBe(true);
         expect(typeof product.is_discontinued).toBe("boolean");
