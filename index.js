@@ -27,8 +27,6 @@ require([
     }
   });
 
-  var loadingElement = document.getElementById("loading");
-
   Promise.all([
     consumeAsyncIterator(productIterator),
     consumeAsyncIterator(inventoryIterator)

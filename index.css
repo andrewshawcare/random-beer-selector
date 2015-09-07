@@ -4,6 +4,11 @@ body {
   font-family: sans-serif;
 }
 
+.loading {
+  font-style: italic;
+  text-align: center;
+}
+
 .product {
   width: 50%;
   margin: 0 auto;
