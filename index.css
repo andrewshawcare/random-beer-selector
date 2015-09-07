@@ -9,10 +9,6 @@ body {
   text-align: center;
 }
 
-.product {
-  margin: 0 auto;
-}
-
 .product .name {
   font-size: 2rem;
 }
@@ -25,14 +21,14 @@ body {
   width: 100%;
 }
 
-.product .action {
-  display: inline-block;
-  margin: 1rem 0;
-}
-
 @media (min-width:600px) {
   .product .image {
     width: 50%;
     float: right;
   }
+}
+
+.product .action {
+  display: inline-block;
+  margin: 1rem 0;
 }
