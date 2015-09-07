@@ -30,22 +30,25 @@ define([], function () {
         productsWithInventory;
     }, []);
 
-    var canSelect = function () {
-      return productsWithInventory.length > 0;
+    var done = function () {
+      return productsWithInventory.length <= 0;
     };
 
     return {
-      canSelect: canSelect,
-      select: function () {
-        if (!canSelect()) {
-          return undefined;
-        };
+      next: function () {
+        if (done()) {
+          return {done: true, value: undefined};
+        }
+
         var randomIndex = Math.floor(Math.random() * productsWithInventory.length);
         var productWithInventory = productsWithInventory.splice(randomIndex, 1)[0];
         return {
-          store: store,
-          product: productWithInventory.product,
-          inventory: productWithInventory.inventory
+          done: false,
+          value: {
+            store: store,
+            product: productWithInventory.product,
+            inventory: productWithInventory.inventory
+          }
         };
       }
     };

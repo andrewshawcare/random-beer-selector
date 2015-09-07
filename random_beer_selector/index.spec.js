@@ -41,24 +41,34 @@ define(["./index.js"], function (RandomBeerSelector) {
       expect(RandomBeerSelector).not.toThrow();
     });
 
-    it("produces an object", function () {
+    it("returns an iterator", function () {
       expect(randomBeerSelector).toBeDefined();
       expect(randomBeerSelector).not.toBeNull();
       expect(typeof randomBeerSelector).toBe("object");
+
+      expect(randomBeerSelector.hasOwnProperty("next")).toBe(true);
+      expect(typeof randomBeerSelector.next).toBe("function");
+
+      var next = randomBeerSelector.next();
+
+      expect(next.hasOwnProperty("done")).toBe(true);
+      expect(typeof next.done).toBe("boolean");
+
+      expect(next.hasOwnProperty("value")).toBe(true);
     });
 
     it("selects a beer", function () {
-      var selection;
-      while (randomBeerSelector.canSelect()) {
-        selection = randomBeerSelector.select();
+      var next, selection;
+      for (next = randomBeerSelector.next(); !next.done; next = randomBeerSelector.next()) {
+        selection = next.value;
         expect(selection.product.primary_category).toBe("Beer");
       }
     });
 
     it("selects an available product", function () {
-      var selection;
-      while (randomBeerSelector.canSelect()) {
-        selection = randomBeerSelector.select();
+      var next, selection;
+      for (next = randomBeerSelector.next(); !next.done; next = randomBeerSelector.next()) {
+        selection = next.value;
         expect(selection.product.is_dead).toBe(false);
         expect(selection.product.is_discontinued).toBe(false);
         expect(selection.product.inventory_count).toBeGreaterThan(0);
@@ -66,17 +76,15 @@ define(["./index.js"], function (RandomBeerSelector) {
     });
 
     it("should select a product from store 511", function () {
-      var selection;
-      while (randomBeerSelector.canSelect()) {
-        var selection = randomBeerSelector.select();
+      var next, selection;
+      for (next = randomBeerSelector.next(), selection = next.value; !next.done; next = randomBeerSelector.next(), selection = next.value) {
         expect(selection.store.id).toBe(511);
       }
     });
 
     it("should select a product with inventory at the selected store", function () {
-      var selection;
-      while (randomBeerSelector.canSelect()) {
-        selection = randomBeerSelector.select();
+      var next, selection;
+      for (next = randomBeerSelector.next(), selection = next.value; !next.done; next = randomBeerSelector.next(), selection = next.value) {
         expect(selection.product.id).toEqual(selection.inventory.product_id);
         expect(selection.store.id).toBe(selection.inventory.store_id);
         expect(selection.inventory.quantity).toBeGreaterThan(0);
@@ -85,17 +93,17 @@ define(["./index.js"], function (RandomBeerSelector) {
 
     it("should not select the same product", function () {
       var selectedProductIds = {};
-      var selection;
-      while (randomBeerSelector.canSelect()) {
-        selection = randomBeerSelector.select();
+      var next, selection;
+      for (next = randomBeerSelector.next(), selection = next.value; !next.done; next = randomBeerSelector.next(), selection = next.value) {
         expect(selectedProductIds.hasOwnProperty(selection.product.id)).toBe(false);
         selectedProductIds[selection.product.id] = true;
       }
     });
 
-    it("should return undefined if no more selections are available", function () {
-      while (randomBeerSelector.canSelect() && randomBeerSelector.select()) {}
-      expect(randomBeerSelector.select()).not.toBeDefined();
+    it("should set done to true if no more selections are available", function () {
+      var next;
+      for (next = randomBeerSelector.next(); !next.done; next = randomBeerSelector.next()) {}
+      expect(next.done).toBe(true);
     });
   });
 });

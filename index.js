@@ -38,15 +38,20 @@ require([
     });
 
     var selectAndRenderProduct = function () {
-      var selection = randomBeerSelector.select();
-      var product = $.extend({}, selection.product, {
-        action: {
-          text: "Select another beer!",
-          onclick: selectAndRenderProduct
-        }
-      });
-      document.body.innerHTML = "";
-      document.body.appendChild(ProductComponent(product));
+      var next = randomBeerSelector.next();
+      if (next.done) {
+        document.body.innerHTML = "You've tried every beer! Great job?"
+      } else {
+        var selection = next.value;
+        var product = $.extend({}, selection.product, {
+          action: {
+            text: "Select another beer!",
+            onclick: selectAndRenderProduct
+          }
+        });
+        document.body.innerHTML = "";
+        document.body.appendChild(ProductComponent(product));
+      }
     };
 
     selectAndRenderProduct();
