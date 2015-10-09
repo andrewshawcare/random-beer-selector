@@ -9,9 +9,7 @@ define([], function () {
           created: new Date()
         });
       },
-      pop: function () {
-        return items.shift();
-      }
+      shift: Array.prototype.shift.bind(items)
     };
   };
 });
