@@ -4,6 +4,7 @@ define([], function () {
       add: function () {},
       pop: function () {
         return {
+          value: "Item",
           created: new Date()
         };
       }
