@@ -1,0 +1,4 @@
+random-beer-selector:
+  build: .
+  ports:
+    - '80:80'
