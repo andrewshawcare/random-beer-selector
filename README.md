@@ -1,5 +1,7 @@
 # random-beer-selector
 
+Randomly select beer from the LCBO
+
 ## Setup
 
 Run `index.html` from your browser of choice.
