@@ -2,10 +2,12 @@
 
 Randomly select beer from the LCBO
 
-## Setup
+## Deployment
 
-Run `index.html` from your browser of choice.
+### Prerequisites
 
-## Tests
+This project is deployed with Docker. The easiest way to setup a Docker environment is by installing the [Docker Toolbox](https://www.docker.com/docker-toolbox).
 
-Tests can be run by using [Wallaby.js](http://wallabyjs.com/) in a supported editor.
+### Docker Compose
+
+1. `docker-compose up`
